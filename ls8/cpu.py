@@ -14,7 +14,7 @@ class CPU:
     def ram_read(self, MAR):
         return self.ram[MAR]
 
-    def ream_write(self, MAR, MDR):
+    def ram_write(self, MAR, MDR):
         self.ram[MAR] = MDR
 
     def load(self):
@@ -70,4 +70,21 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        pass
+        status = True
+        while status:
+            ir = self.ram_read(self.pc)
+            operand_a = self.ram_read(self.pc + 1)
+            operand_b = self.ram_read(self.pc + 2)
+
+            if ir == HLT:
+                status = False
+
+            elif ir == LDI:
+                self.register[operand_a] = operand_b
+                self.pc += 3
+
+            elif ir == PRN:
+                print(self.register[operand_a])
+                self.pc += 2
+
+cpu = CPU()
