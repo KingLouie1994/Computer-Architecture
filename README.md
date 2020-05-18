@@ -1,3 +1,4 @@
+Luis Schekerka
 # Computer Architecture
 
 ## Project
