@@ -5,6 +5,8 @@ import sys
 HLT = 0b00000001
 LDI = 0b10000010
 PRN = 0b01000111
+MUL = 0b10100010
+ADD = 0b10100000
 
 class CPU:
     """Main CPU class."""
@@ -21,7 +23,7 @@ class CPU:
     def ram_write(self, MAR, MDR):
         self.ram[MAR] = MDR
 
-    def load(self):
+    def load(self, filename):
         """Load a program into memory."""
         if len(sys.argv) != 2:
             print('Must specify a file to run.')
@@ -46,7 +48,9 @@ class CPU:
         """ALU operations."""
 
         if op == "ADD":
-            self.reg[reg_a] += self.reg[reg_b]
+            self.register[reg_a] += self.register[reg_b]
+        elif op == "MUL":
+            self.register[reg_a] *= self.register[reg_b]
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -88,5 +92,9 @@ class CPU:
             elif ir == PRN:
                 print(self.register[operand_a])
                 self.pc += 2
+
+            elif ir == MUL:
+                self.register[operand_a] *= self.register[operand_b]
+                self.pc += 3
 
 cpu = CPU()
