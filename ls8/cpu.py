@@ -7,6 +7,7 @@ LDI = 0b10000010
 PRN = 0b01000111
 MUL = 0b10100010
 ADD = 0b10100000
+PUSH = 0b01000101
 
 class CPU:
     """Main CPU class."""
@@ -96,5 +97,11 @@ class CPU:
             elif ir == MUL:
                 self.register[operand_a] *= self.register[operand_b]
                 self.pc += 3
+
+            elif ir == PUSH:
+                val = self.register[operand_a]
+                self.register[SP] -= 1
+                self.ram[self.register[SP]] = val
+                self.pc += 2
 
 cpu = CPU()
