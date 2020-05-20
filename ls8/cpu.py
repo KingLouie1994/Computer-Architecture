@@ -10,6 +10,8 @@ ADD = 0b10100000
 PUSH = 0b01000101
 POP = 0b01000110
 
+SP = 7
+
 class CPU:
     """Main CPU class."""
 
