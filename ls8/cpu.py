@@ -8,6 +8,7 @@ PRN = 0b01000111
 MUL = 0b10100010
 ADD = 0b10100000
 PUSH = 0b01000101
+POP = 0b01000110
 
 class CPU:
     """Main CPU class."""
@@ -102,6 +103,12 @@ class CPU:
                 val = self.register[operand_a]
                 self.register[SP] -= 1
                 self.ram[self.register[SP]] = val
+                self.pc += 2
+
+            elif ir == POP:
+                val = self.ram[self.register[SP]]
+                self.register[operand_a] = val
+                self.register[SP] += 1
                 self.pc += 2
 
 cpu = CPU()
